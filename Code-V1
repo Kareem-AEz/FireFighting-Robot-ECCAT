@@ -1,0 +1,456 @@
+                                  //**Declaring PINS**\\ 
+/*----FF Fan Module----*/
+byte fanInA= 3;
+byte fanInb= 4;
+/*----Sensor Module----*/
+byte sensorDo= 2;
+int sensorAo= A0;
+byte sensorReadingDo= digitalRead(sensorDo);
+int sensorReadingAo= analogRead(sensorAo);
+/*----Motor A----*/
+byte motorAIn1= 5;
+byte motorAIn2= 6;
+byte motorAEn= 9;
+/*----Motor B----*/
+byte motorBIn1= 7;
+byte motorBIn2= 8;
+byte motorBEn= 10;
+/*----MotorsSpd----*/
+byte motorSpd= 0;
+byte motorSpdAt= 5;
+byte motorCrtSpd= 50;
+/*----Buzzer----*/
+byte buzzerPin= 11;
+/*----ledRed----*/
+byte ledRed= 12;
+/*----Led Green----*/
+byte ledGreen= 13;
+
+/*----xxxx ms-----*/
+//Never Gonna Give You Up StartSound
+void start(byte buzzerPin){
+  
+  tone(buzzerPin, 880);
+  delay(115);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 1760);
+  delay(115);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 784);
+  delay(121);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 1568);
+  delay(121);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 740);
+  delay(110);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 1480);
+  delay(110);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 587);
+  delay(905);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 1175);
+  delay(905);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 659);
+  delay(768);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 1319);
+  delay(768);
+  noTone(buzzerPin);
+
+}
+
+/*----xxxx ms-----*/
+//SuperMario StartSound
+void startSuperMario(byte buzzerPin){
+
+  tone(buzzerPin, 1865);
+  delay(210);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 1865);
+  delay(210);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 1865);
+  delay(210);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 1480);
+  delay(210);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 1865);
+  delay(357);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 2217);
+  delay(357);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 1109);
+  delay(357);
+  noTone(buzzerPin);
+
+}
+
+/*----1000 ms-----*/
+//Confirm_02 SoundEffect
+void confirm02(byte buzzerPin){
+
+  tone(buzzerPin, 2000, 600);
+  delay(700);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 2500, 200);
+  delay(300);
+  noTone(buzzerPin);
+
+}
+/*----450 ms-----*/
+//Confirm_01 SoundEffect
+void confirm( byte buzzerPin){
+  tone(buzzerPin, 2000, 100);
+  delay(150);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 1800, 200);
+  delay(300);
+  noTone(buzzerPin);
+}
+
+/*----xxxx ms-----*/
+//Victory SoundEffect
+void victory(byte buzzerPin){
+  
+  tone(buzzerPin, 440);
+  delay(340);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 440);
+  delay(325);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 466);
+  delay(123);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 554);
+  delay(325);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 466);
+  delay(125);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 466);
+  delay(125);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 622);
+  delay(326);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 466);
+  delay(125);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 466);
+  delay(125);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 698);
+  delay(326);
+  noTone(buzzerPin);
+}
+
+/*----250 ms-----*/
+//Danger SoundEffect
+void danger(byte buzzerPin){
+  tone(buzzerPin, 1500, 50);
+  delay(80);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 1800, 100);
+  delay(120);
+  noTone(buzzerPin);
+
+  tone(buzzerPin, 200, 150);
+  delay(50);
+  noTone(buzzerPin);
+}
+
+/*----250 ms/Cycle-----*/
+//Flashing Leds Green&Red
+void flash(byte z){
+  for (int i=0; i<z; i++){
+    digitalWrite(ledGreen, HIGH);
+    digitalWrite(ledRed, LOW);
+    delay(150);
+    digitalWrite(ledGreen, LOW);
+    digitalWrite(ledRed, HIGH);
+    delay(100);
+    digitalWrite(ledRed, LOW);
+  }
+}
+
+/*----200 ms/Cycle-----*/
+//Flashing Leds Green
+void flashGreen(byte z){
+  for (int i=0; i<z; i++){
+    digitalWrite(ledGreen, HIGH);
+    delay(150);
+    digitalWrite(ledGreen, LOW);
+    delay(50);
+  }
+}
+
+/*----200 ms-----*/
+//Flashing Leds Red
+void flashRed(byte z){
+  for (int i=0; i<z; i++){
+    digitalWrite(ledRed, HIGH);
+    delay(150);
+    digitalWrite(ledRed, LOW);
+    delay(50);
+  }
+}
+
+//Callipration: Checking if everything is working well.
+void callip(){
+  
+  rotRight(120);
+  fanFire();
+  flashRed(5);
+  moveOff();
+  delay(200);
+  fanFireOff();
+  confirm(buzzerPin);
+  delay(1000);
+
+  rotLeft(120);
+  fanFire();
+  flashGreen(5);
+  moveOff();
+  delay(200);
+  fanFireOff();
+  confirm(buzzerPin);
+  delay(1000);
+
+ }
+
+//Fan Module "ON"
+void fanFire() {
+  digitalWrite(fanInA, LOW);
+  digitalWrite(fanInb, HIGH);
+}
+
+//Fan Module "OFF"
+void fanFireOff() {
+  digitalWrite(fanInA, LOW);
+  digitalWrite(fanInb, LOW);
+}
+
+//Rotating till infinity //Searching FOR Fire
+void rotation360(byte s){
+
+   analogWrite(motorAEn, s);
+   analogWrite(motorBEn, s);
+
+   digitalWrite(motorAIn1, HIGH);
+   digitalWrite(motorAIn2, LOW);
+      
+   digitalWrite(motorBIn1, LOW);
+   digitalWrite(motorBIn2, HIGH);
+   delay(60);
+   digitalWrite(motorAIn1, HIGH);
+   digitalWrite(motorAIn2, HIGH);
+    
+   digitalWrite(motorBIn1, HIGH);
+   digitalWrite(motorBIn2, HIGH);
+   delay(500);
+}
+
+//Moving Forward
+void moveFrd(byte s) {
+
+  analogWrite(motorAEn, s);
+  analogWrite(motorBEn, s);
+
+  digitalWrite(motorAIn1, LOW);
+  digitalWrite(motorAIn2, HIGH);
+  
+  digitalWrite(motorBIn1, LOW);
+  digitalWrite(motorBIn2, HIGH);
+  }
+
+//Moving Backward
+void moveBkrd(byte s){
+  motorCrtSpd= s;
+  analogWrite(motorAEn, motorCrtSpd);
+  analogWrite(motorBEn, motorCrtSpd);
+
+  digitalWrite(motorAIn1, HIGH);
+  digitalWrite(motorAIn2, LOW);
+  
+  digitalWrite(motorBIn1, HIGH);
+  digitalWrite(motorBIn2, LOW);
+  }
+
+//Rotating Right
+void rotRight(byte s){
+  motorCrtSpd= s;
+  analogWrite(motorAEn, motorCrtSpd);
+  analogWrite(motorBEn, motorCrtSpd);
+
+  digitalWrite(motorAIn1, HIGH);
+  digitalWrite(motorAIn2, LOW);
+      
+  digitalWrite(motorBIn1, LOW);
+  digitalWrite(motorBIn2, HIGH);
+}
+
+//Rotating Left
+void rotLeft(byte s){
+  motorCrtSpd= s;
+  analogWrite(motorAEn, motorCrtSpd);
+  analogWrite(motorBEn, motorCrtSpd);
+
+  digitalWrite(motorAIn1, LOW);
+  digitalWrite(motorAIn2, HIGH);
+      
+  digitalWrite(motorBIn1, HIGH);
+  digitalWrite(motorBIn2, LOW);
+}
+
+//Motors "OFF"
+void moveOff() {
+  digitalWrite(motorAIn1, HIGH);
+  digitalWrite(motorAIn2, HIGH);
+  
+  digitalWrite(motorBIn1, HIGH);
+  digitalWrite(motorBIn2, HIGH);
+}
+
+
+void setup() {
+  // put your setup code here, to run once:
+  //Serial monitor ON
+  Serial.begin(9600);
+
+  //Fan Pins "OUTPUT"
+  pinMode(fanInA, OUTPUT);
+  pinMode(fanInb, OUTPUT);
+
+  //H-Bridge Motor-A Pins "OUTPUT"
+  pinMode(motorAIn1, OUTPUT);
+  pinMode(motorAIn2, OUTPUT);
+  pinMode(motorAEn, OUTPUT);
+
+  //H-Bridge Motor-B Pins "OUTPUT"
+  pinMode(motorBIn1, OUTPUT);
+  pinMode(motorBIn2, OUTPUT);
+  pinMode(motorBEn, OUTPUT);
+  /*******/
+  //Sensor Digital Pin "OUTPUT"
+  pinMode(sensorDo, INPUT);
+  //Sensor Analog Pin "OUTPUT"
+  pinMode(sensorAo, INPUT);
+
+  //Buzzer, LEDs OUTPUT
+  pinMode(buzzerPin, OUTPUT);
+  pinMode(ledGreen, OUTPUT);
+  pinMode(ledRed, OUTPUT);
+
+
+  startSuperMario(buzzerPin);  
+  flash(10);
+  //start(buzzerPin);
+  delay(500);
+  callip();
+  confirm02(buzzerPin);
+}
+
+void loop() {
+
+  //Declaring Variable TYPE "byte"= 8-bits <<0,255>>; Called sensorReadingDo.
+  //Assigning sensorDo value to it.
+  byte sensorReadingDo= digitalRead(sensorDo);
+
+  //Declaring Variable TYPE "byte"= 32-bits <<0,32,767>>; Called sensorReadingAoMpd
+  //Has no JOB YET :D
+  byte sensorReadingAoMpd;
+
+  //Declaring Variable TYPE "int"= 2-bits <<0,255>>; Called sensorReadingAo
+  int sensorReadingAo= analogRead(sensorAo);
+
+  //Printing Value of sensorReadingDo
+  Serial.println(sensorReadingDo);
+
+  //Printing Value of sensorReadingAo
+  Serial.println(sensorReadingAo);
+
+  //Maping sensorReadingAo value
+  sensorReadingAoMpd= map(sensorReadingAo, 0, 900, 0, 10);
+  Serial.println(sensorReadingAoMpd);
+  byte pushButton= digitalRead(A1);
+  Serial.println(pushButton);
+
+
+
+  //Checking if sensorReadingDo is "HIGH"
+  if (sensorReadingDo == HIGH){ //IF HIGH EXCUTE THIS CODE
+    fanFire();  //Fan "ON"
+    moveOff();  //Stop Motors
+    danger(buzzerPin);  //Play Dagner Sound
+    moveFrd(60);  //Move Forward at Speed 60 <<MAX 255>>
+    flashRed(1);  //Flash Red LED "1" Times
+    moveOff();  //Stop Motors
+    flashRed(2);  //Flash Red LED "2" Times
+    flash(4); //Flash RED and GREEN LEDs "4" Times
+    fanFireOff(); //Fan "OFF"
+    flashGreen(5);  //Flash GREEN LED "5" Times
+
+    //Checks If There Is Still Fire Each 1ms For 1000ms 
+    for (int b=0; b <= 1000; b++){
+        sensorReadingDo= digitalRead(sensorDo);
+        delay(1);
+      }    
+    delay(1);
+
+    //Checking if sensorReadingDo is "LOW" 
+    if (sensorReadingDo == LOW) { //IF "LOW" EXCUTE THIS CODE ******** //IF STILL "HIGH" EXCUTE THE CODE ABOVE OVER AND OVER...
+      sensorReadingDo= digitalRead(sensorDo); //Checking sensorReadingDo "1" More Time
+      confirm(buzzerPin); //Confirm Sound "ON"
+      rotLeft(60); //Rotate "Left" at Speed "60"
+      flashGreen(1); //Flash RED and GREEN LEDs "1" Times
+      moveOff();  //Stop Motors
+      flash(3); //Flash RED and GREEN LEDs "3" Times
+      delay(60);  //Delay 60ms
+    }
+  }
+  else{ //IF LOW EXCUTE THIS CODE
+    delay(1); //delay 1ms
+    digitalWrite(ledGreen, HIGH); //Set GREEN LED "HIGH"
+    rotation360(100); //Rotate at speed 100
+    digitalWrite(ledGreen, LOW);  //Set GREEN LED "LOW"
+    tone(buzzerPin, 3000, 20);  //Buzzer SOUND
+    delay(30);  //Delay 30ms
+    noTone(buzzerPin);  //Buzzer NO SOUND
+    flashGreen(1);  //Flash RED and GREEN LEDs "1" Times
+  }
+  delay(20); //Delay 20ms
+
+}
