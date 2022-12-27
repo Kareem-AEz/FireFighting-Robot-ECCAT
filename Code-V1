@@ -264,6 +264,7 @@ void fanFireOff() {
 }
 
 //Rotating till infinity //Searching FOR Fire
+/*----100 ms-----*/
 void rotation360(byte s){
 
    analogWrite(motorAEn, s);
@@ -280,7 +281,7 @@ void rotation360(byte s){
     
    digitalWrite(motorBIn1, HIGH);
    digitalWrite(motorBIn2, HIGH);
-   delay(500);
+   delay(40);
 }
 
 //Moving Forward
@@ -411,7 +412,7 @@ void loop() {
 
 
   //Checking if sensorReadingDo is "HIGH"
-  if (sensorReadingDo == HIGH){ //IF HIGH EXCUTE THIS CODE
+  if (sensorReadingDo == HIGH){   //IF HIGH EXCUTE THIS CODE
     fanFire();  //Fan "ON"
     moveOff();  //Stop Motors
     danger(buzzerPin);  //Play Dagner Sound
